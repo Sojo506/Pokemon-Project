@@ -12,7 +12,7 @@ const getPokemonsApi = async () => {
     .then((response) => response.data.results) // GET INTO RESULTS ARRAY (WHERE ARE POKEMONS)
     .then((pokemon) => pokemon);
 
-  // GET THE URL TO DO A SUBREQUEST 
+  // GET THE URL TO DO A SUBREQUEST
   const urls = data.map((d) => axios.get(d.url)); // PENDING
 
   // RESOLVED THEM ALREADY AND GET DATA FROM THEM
@@ -76,6 +76,7 @@ const getPokemons = async (req, res) => {
           })
         );
       }
+
       return res.json(
         pokemons.sort((a, b) => {
           let aux;
@@ -87,13 +88,12 @@ const getPokemons = async (req, res) => {
           return aux;
         })
       );
-
-      
     }
 
     if (type) {
-      console.log(Type_Pokemon)
+      console.log(Type_Pokemon);
 
+      // TO DO: FILTER BY TYPE
       /* const aux = type
         .toString()
         .split("")
@@ -151,7 +151,7 @@ const createPokemon = async (req, res) => {
     });
 
     const typesDb = await Type.findAll({ where: { name: types } });
-    poke.addType(typesDb)
+    poke.addType(typesDb);
 
     return res.json(poke);
   } catch (error) {
