@@ -113,6 +113,7 @@ const getPokemons = async (req, res) => {
     res.json(pokemons);
   } catch (error) {
     console.log(error);
+    return res.status(404).send(error)
   }
 };
 
