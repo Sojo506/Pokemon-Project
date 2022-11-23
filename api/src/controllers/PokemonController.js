@@ -1,6 +1,7 @@
 const { Pokemon, Type, Type_Pokemon } = require("../db");
 const axios = require("axios");
 
+// ================= FUNCTIONS ===================
 // GET POKEMONS FROM THE API
 const getPokemonsApi = async () => {
   // KEEP POKEMONES
@@ -8,7 +9,7 @@ const getPokemonsApi = async () => {
 
   // SEARCH POKEMOS BY THE API
   const data = await axios
-    .get("https://pokeapi.co/api/v2/pokemon?limit=12")
+    .get("https://pokeapi.co/api/v2/pokemon?limit=40")
     .then((response) => response.data.results) // GET INTO RESULTS ARRAY (WHERE ARE POKEMONS)
     .then((pokemon) => pokemon);
 
@@ -49,6 +50,7 @@ const getBothPokemons = async () => {
   return pokemons;
 };
 
+// ================= HTTP METHODS ===================
 // GET /pokemons
 const getPokemons = async (req, res) => {
   const { name, filter, type } = req.query;
@@ -62,8 +64,9 @@ const getPokemons = async (req, res) => {
       if (pokeName) return res.json(pokeName);
     }
 
+    // FILTER BY ORDER
     if (filter) {
-      if (filter === "ASC") {
+      if (filter === "asc") { // ASCENDING A-Z
         return res.json(
           pokemons.sort((a, b) => {
             let aux;
@@ -77,7 +80,7 @@ const getPokemons = async (req, res) => {
         );
       }
 
-      return res.json(
+      return res.json( // DESCENDING Z-A
         pokemons.sort((a, b) => {
           let aux;
           b.name.toUpperCase() < a.name.toUpperCase()
@@ -90,32 +93,38 @@ const getPokemons = async (req, res) => {
       );
     }
 
+    // FILTER BY TYPE
     if (type) {
       console.log(Type_Pokemon);
-
       // TO DO: FILTER BY TYPE
-      /* const aux = type
-        .toString()
-        .split("")
-        .slice(1, type.length - 1)
-        .join("")
-        .split(",");
-
       return res.json(
-        pokemons.filter((p) => {
-          return p.types.some((t) => {
-            return aux.includes(t);
-          });
-        })
-      ); */
+        pokemons.filter(p => p.types.includes(type))
+      )
     }
 
     res.json(pokemons);
   } catch (error) {
     console.log(error);
-    return res.status(404).send(error)
+    return res.status(404).send(error);
   }
 };
+
+// GET /pokemons/api
+const getPokemonsByApi = async(req, res) => {
+  try {
+    return res.json(await getPokemonsApi())
+  } catch (error) {
+    res.status(404).send(error);
+  }
+}
+// GET /pokemons/db
+const getPokemonsByDb = async(req, res) => {
+  try {
+    return res.json(await getPokemonsDb())
+  } catch (error) {
+    res.status(404).send(error);
+  }
+}
 
 // GET /pokemons/:id
 const getPokemon = async (req, res) => {
@@ -148,7 +157,7 @@ const createPokemon = async (req, res) => {
       defense,
       speed,
       height,
-      weight,
+      weight
     });
 
     const typesDb = await Type.findAll({ where: { name: types } });
@@ -162,6 +171,8 @@ const createPokemon = async (req, res) => {
 
 module.exports = {
   getPokemons,
+  getPokemonsByApi,
+  getPokemonsByDb,
   getPokemon,
   createPokemon,
 };

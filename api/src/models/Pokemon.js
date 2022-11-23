@@ -45,11 +45,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         defaultValue: "https://pngimg.com/uploads/pokeball/pokeball_PNG22.png",
       },
-      /* createdInDb: {
+      createdInDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
-    } */
+    }
     },
     {
       timestamps: false,
