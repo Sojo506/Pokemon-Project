@@ -6,6 +6,7 @@ import Card from "./Card";
 import Navbar from "./Navbar";
 import Paginated from "./Paginated";
 import SearchBar from "./SearchBar";
+import { Link } from "react-router-dom";
 let aux = 0;
 export default function Home() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function Home() {
   const fistOne = lastOne - pokemonsPage; // 12 - 12 = 0 / 24 - 12 = 12
 
   const showPokemons = pokemons.slice(fistOne, lastOne); // 0, 12 - 12, 24
-  console.log(showPokemons)
+  console.log(showPokemons);
 
   useEffect(() => {
     dispatch(getPokemons());
@@ -33,6 +34,9 @@ export default function Home() {
       <header>
         <SearchBar />
         <Navbar />
+        <Link to="/home/create">
+          <button>Create</button>
+        </Link>
       </header>
       <Paginated
         pokemons={pokemons.length}
@@ -44,9 +48,15 @@ export default function Home() {
         {showPokemons &&
           showPokemons.map((p) => {
             return (
-              <li key={p.id}>
-                <Card image={p.image} name={p.name} types={p.types} />
-              </li>
+              <Link  key={aux++} to={`/home/pokemon/${p.id}`}>
+                <li>
+                  <Card
+                    image={p.image}
+                    name={p.name}
+                    types={p.createdInDb ? p.types.map((t) => t.name) : p.types}
+                  />
+                </li>
+              </Link>
             );
           })}
       </ul>

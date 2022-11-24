@@ -1,18 +1,18 @@
 import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import LandingPage from "./components/LandingPage.jsx";
 import Home from "./components/Home";
-import Card from "./components/Card";
-import Navbar from "./components/Navbar";
+import CardCreate from "./components/CardCreate";
+import CardDetail from "./components/CardDetail";
 
 function App() {
-  const pokemon = useSelector((state) => state.pokemon);
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/home" component={Home} />
+        <Route exact path="/home/create" component={CardCreate} />
+        <Route exact path="/home/pokemon/:id" component={CardDetail} />
       </Switch>
     </BrowserRouter>
   );

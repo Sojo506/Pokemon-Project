@@ -1,28 +1,29 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getPokemon, getPokemons, getTypes } from "../actions";
+import { useDispatch } from "react-redux";
+import { getPokemon, getPokemons } from "../actions";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [pokeSearch, setPokeSearch] = useState("");
-  const pokemons = useSelector((state) => state.pokemons);
+  const regex = /^[a-zA-Z]*$/;
   const handleSearch = (e) => {
     e.preventDefault();
     setPokeSearch(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //dispatch(getPokemons());
 
-    if (
-      pokemons.findIndex(
-        (p) => p.name.toLowerCase() === pokeSearch.toLowerCase()
-      ) >= 0
-    )
+    if (regex.test(pokeSearch)) {
       dispatch(getPokemon(pokeSearch));
-    else dispatch(getPokemons(pokeSearch));
-    setPokeSearch("");
+    } else {
+      dispatch(getPokemons());
+      setPokeSearch("");
+    }
+
+    setTimeout(() => {
+      setPokeSearch("");
+    }, 3000);
   };
   return (
     <div>

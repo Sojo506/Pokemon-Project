@@ -4,6 +4,8 @@ export const GET_TYPES = "GET_TYPES";
 export const FILTER_POKEMONS = "FILTER_POKEMONS";
 export const GET_POKEMONS_API = "GET_POKEMONS_API";
 export const GET_POKEMONS_DB = "GET_POKEMONS_DB";
+export const CREATE_POKEMON = "CREATE_POKEMON";
+export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
 
 export function getPokemons() {
   return function (dispatch) {
@@ -16,11 +18,50 @@ export function getPokemons() {
 }
 
 export function getPokemon(value) {
+  try {
+    return function (dispatch) {
+      return fetch(`http://localhost:3001/pokemons/${value}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((json) => {
+          dispatch({ type: GET_POKEMON, payload: json });
+        });
+    };
+  } catch (error) {
+    console.log("Not Found");
+  }
+}
+
+export function getPokemonDetail(value) {
+  try {
+    return function (dispatch) {
+      return fetch(`http://localhost:3001/pokemons/${value}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((json) => {
+          dispatch({ type: GET_POKEMON_DETAIL, payload: json });
+        });
+    };
+  } catch (error) {
+    console.log("Not Found");
+  }
+}
+
+export function createPokemon(pokemon) {
   return function (dispatch) {
-    return fetch(`http://localhost:3001/pokemons?name=${value}`)
+    return fetch("http://localhost:3001/pokemons", {
+      method: "POST",
+      body: JSON.stringify({...pokemon}),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
       .then((response) => response.json())
       .then((json) => {
-        dispatch({ type: GET_POKEMON, payload: json });
+        console.log(json)
+        dispatch({ type: CREATE_POKEMON, payload: json });
       });
   };
 }
@@ -43,6 +84,7 @@ export function existingPokemons() {
       });
   };
 }
+
 export function createdPokemons() {
   return function (dispatch) {
     return fetch("http://localhost:3001/pokemons/db")
