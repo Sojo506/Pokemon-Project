@@ -130,7 +130,7 @@ const getPokemonsByDb = async (req, res) => {
 // GET /pokemons/:id(/:name)
 const getPokemonByIdOrName = async (req, res) => {
   const { id } = req.params;
-  if(isNaN(id)) {
+  if(id.length === 36) {
     console.log('Buscando en DB')
     const pokemonDb = await Pokemon.findOne({
       where: {
