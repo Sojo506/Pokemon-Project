@@ -22,10 +22,10 @@ const getPokemonsApi = async () => {
       pokemons.push({
         id: p.data.id,
         name: p.data.name.charAt(0).toUpperCase() + p.data.name.slice(1),
-        hp: p.data.stats.find((s) => s.stat.name === "hp").base_stat,
-        attack: p.data.stats.find((s) => s.stat.name === "attack").base_stat,
-        defense: p.data.stats.find((s) => s.stat.name === "defense").base_stat,
-        speed: p.data.stats.find((s) => s.stat.name === "speed").base_stat,
+        hp: p.data.stats[0].base_stat,
+        attack: p.data.stats[1].base_stat,
+        defense: p.data.stats[2].base_stat,
+        speed: p.data.stats[5].base_stat,
         height: p.data.height,
         weight: p.data.weight,
         image: p.data.sprites.other.dream_world.front_default,
@@ -39,7 +39,15 @@ const getPokemonsApi = async () => {
 
 // GET POKEMONS FROM DB
 const getPokemonsDb = async () => {
-  const getter = await Pokemon.findAll();
+  const getter = await Pokemon.findAll({
+    include: {
+      model: Type,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   return getter;
 };
 
@@ -53,20 +61,14 @@ const getBothPokemons = async () => {
 // ================= HTTP METHODS ===================
 // GET /pokemons
 const getPokemons = async (req, res) => {
-  const { name, filter, type } = req.query;
+  const { filter, type } = req.query;
   try {
     const pokemons = await getBothPokemons();
 
-    if (name) {
-      const pokeName = pokemons.find(
-        (p) => p.name.toLowerCase() === name.toLowerCase()
-      );
-      if (pokeName) return res.json(pokeName);
-    }
-
     // FILTER BY ORDER
     if (filter) {
-      if (filter === "asc") { // ASCENDING A-Z
+      if (filter === "asc") {
+        // ASCENDING A-Z
         return res.json(
           pokemons.sort((a, b) => {
             let aux;
@@ -80,7 +82,8 @@ const getPokemons = async (req, res) => {
         );
       }
 
-      return res.json( // DESCENDING Z-A
+      return res.json(
+        // DESCENDING Z-A
         pokemons.sort((a, b) => {
           let aux;
           b.name.toUpperCase() < a.name.toUpperCase()
@@ -97,9 +100,7 @@ const getPokemons = async (req, res) => {
     if (type) {
       console.log(Type_Pokemon);
       // TO DO: FILTER BY TYPE
-      return res.json(
-        pokemons.filter(p => p.types.includes(type))
-      )
+      return res.json(pokemons.filter((p) => p.types.includes(type)));
     }
 
     res.json(pokemons);
@@ -110,34 +111,61 @@ const getPokemons = async (req, res) => {
 };
 
 // GET /pokemons/api
-const getPokemonsByApi = async(req, res) => {
+const getPokemonsByApi = async (req, res) => {
   try {
-    return res.json(await getPokemonsApi())
+    return res.json(await getPokemonsApi());
   } catch (error) {
     res.status(404).send(error);
   }
-}
+};
 // GET /pokemons/db
-const getPokemonsByDb = async(req, res) => {
+const getPokemonsByDb = async (req, res) => {
   try {
-    return res.json(await getPokemonsDb())
+    return res.json(await getPokemonsDb());
   } catch (error) {
     res.status(404).send(error);
   }
-}
+};
 
-// GET /pokemons/:id
-const getPokemon = async (req, res) => {
+// GET /pokemons/:id(/:name)
+const getPokemonByIdOrName = async (req, res) => {
   const { id } = req.params;
-
+  if(isNaN(id)) {
+    console.log('Buscando en DB')
+    const pokemonDb = await Pokemon.findOne({
+      where: {
+        id
+      },
+      include: {
+        model: Type,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    })
+    return res.json([{ ...pokemonDb._previousDataValues }]);
+  }
   try {
-    const pokemons = await getBothPokemons();
-    const pk = pokemons.filter((p) => p.id == id);
-    if (!pk.length) throw new Error("Some error happened");
+    console.log('Buscando en API')
+    const data = await axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      .then((response) => response.data);
+    const pokemon = {};
+    pokemon["id"] = data.id;
+    pokemon["name"] = data.name;
+    pokemon["hp"] = data.stats[0].base_stat;
+    pokemon["attack"] = data.stats[1].base_stat;
+    pokemon["defense"] = data.stats[2].base_stat;
+    pokemon["speed"] = data.stats[5].base_stat;
+    pokemon["height"] = data.height;
+    pokemon["weight"] = data.weight;
+    pokemon["image"] = data.sprites.other.dream_world.front_default;
+    pokemon["types"] = data.types.map((e) => e.type.name);
 
-    res.json(pk);
+    res.json([{ ...pokemon }]);
   } catch (error) {
-    console.log(error);
+    res.status(404).send("Not Found");
   }
 };
 
@@ -145,19 +173,20 @@ const getPokemon = async (req, res) => {
 const createPokemon = async (req, res) => {
   const { name, hp, attack, defense, speed, height, weight, image, types } =
     req.body;
-
-  if (!name || !hp || !attack || !defense || !speed || !height || !weight)
-    throw new Error("Some parameters are missing");
-
+  console.log(req.body)
   try {
+    if (!name || !hp || !attack || !defense || !speed || !height || !weight || !types.length) {
+      throw new Error("Some parameters are missing");
+    }
+
     const poke = await Pokemon.create({
       name,
-      hp,
-      attack,
-      defense,
-      speed,
-      height,
-      weight
+      hp :parseInt(hp),
+      attack :parseInt(attack),
+      defense :parseInt(defense),
+      speed :parseInt(speed),
+      height :parseInt(height),
+      weight :parseInt(weight),
     });
 
     const typesDb = await Type.findAll({ where: { name: types } });
@@ -173,6 +202,6 @@ module.exports = {
   getPokemons,
   getPokemonsByApi,
   getPokemonsByDb,
-  getPokemon,
+  getPokemonByIdOrName,
   createPokemon,
 };
