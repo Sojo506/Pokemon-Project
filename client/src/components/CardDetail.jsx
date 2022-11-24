@@ -41,12 +41,12 @@ export default function CardDetail(props) {
           <fieldset>
             <legend>Stats</legend>
             <ul>
-              <li>{pokemon[0].hp}</li>
-              <li>{pokemon[0].attack}</li>
-              <li>{pokemon[0].defense}</li>
-              <li>{pokemon[0].speed}</li>
-              <li>{pokemon[0].height}</li>
-              <li>{pokemon[0].weight}</li>
+              <li>Hp: {pokemon[0].hp}</li>
+              <li>Attack: {pokemon[0].attack}</li>
+              <li>Defense: {pokemon[0].defense}</li>
+              <li>Speed: {pokemon[0].speed}</li>
+              <li>Height: {pokemon[0].height}</li>
+              <li>Weight: {pokemon[0].weight}</li>
             </ul>
           </fieldset>
           <div>

@@ -5,9 +5,10 @@ import { getTypes, createPokemon } from "../actions";
 
 export default function CardCreate() {
   const dispatch = useDispatch();
-  const home = useHistory()
+  const home = useHistory();
   const types = useSelector((state) => state.types);
-  const [typesArray, setTypes] = useState([]);
+  const [checkboxes, setCheckoxes] = useState([]);
+  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     name: "",
     hp: "",
@@ -18,6 +19,55 @@ export default function CardCreate() {
     weight: "",
   });
 
+  // FORM VALIDATE
+  function validate(input) {
+    const errors = {};
+
+    if (!input.name) {
+      errors.name = "Name is required";
+    } else if (!/^[a-zA-Z]*$/.test(input.name)) {
+      errors.name = "Name is invalid";
+    }
+
+    if (!input.hp) {
+      errors.hp = "Hp is required";
+    } else if (input.hp <= 0 || input.hp > 100) {
+      errors.hp = "Hp is invalid";
+    }
+
+    if (!input.attack) {
+      errors.attack = "Attack is required";
+    } else if (input.attack <= 0 || input.attack > 100) {
+      errors.attack = "Attack is invalid";
+    }
+
+    if (!input.defense) {
+      errors.defense = "Defense is required";
+    } else if (input.defense <= 0 || input.defense > 100) {
+      errors.defense = "Defense is invalid";
+    }
+
+    if (!input.speed) {
+      errors.speed = "Speed is required";
+    } else if (input.speed <= 0 || input.speed > 100) {
+      errors.speed = "Speed is invalid";
+    }
+
+    if (!input.height) {
+      errors.height = "Height is required";
+    } else if (input.height <= 0 || input.height > 100) {
+      errors.height = "Height is invalid";
+    }
+
+    if (!input.weight) {
+      errors.weight = "Weight is required";
+    } else if (input.weight <= 0 || input.weight > 1000) {
+      errors.weight = "Weight is invalid";
+    }
+
+    return errors;
+  }
+
   useEffect(() => {
     dispatch(getTypes());
   }, []);
@@ -27,21 +77,31 @@ export default function CardCreate() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(e.target.name, e.target.value)
+    setErrors(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
 
   const handleCheckBox = (e) => {
-    if(e.target.checked) setTypes(result => [...result, e.target.name]);
-    console.log(typesArray)
-  }
+    if (e.target.checked)
+      return setCheckoxes((result) => [...result, e.target.name]);
+    setCheckoxes((result) => result.filter((r) => r !== e.target.name));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!input.name || !input.hp || !input.attack || !input.defense || !input.speed || !input.height || !input.weight || !types.length) return alert('Some Parameters are missing')
-    if((input.hp <=0 || input.hp > 100)  || (input.attack <=0 || input.attack > 100)  || (input.defense <=0 || input.defense > 100)  || (input.speed <=0 || input.speed > 100)  || (input.height <=0 || input.height > 100)  || (input.weight <=0 || input.weight > 1000)) return alert('Some Parameters are out of range')
-    dispatch(createPokemon({...input, types: typesArray}))
-    alert('Pokemon created!')
-    setInput({
+    e.preventDefault();
+
+    if (Object.keys(errors).length > 0)
+      return alert("One or more paremeters are missing");
+    if (!checkboxes.length) return alert("At least select one type");
+    if (checkboxes.length > 5) return alert("Please select less than 5 types");
+
+    dispatch(createPokemon({ ...input, types: checkboxes }));
+    alert("Pokemon created!");
+    /* setInput({
       name: "",
       hp: "",
       attack: "",
@@ -49,20 +109,25 @@ export default function CardCreate() {
       speed: "",
       height: "",
       weight: "",
-    })
-
-  }
-  const handleHome = () => {
-    home.push('/home')
-    console.log(36)
-  }
+    }); */
+    home.push("/home");
+  };
+  
   return (
     <div>
       <form>
         <div>
           <label htmlFor="name">Name:</label>
           <input
-            value={input.name} id="name" name="name" type="text" onChange={(e) => handleStats(e)}/>
+            value={input.name}
+            id="name"
+            name="name"
+            type="text"
+            maxLength="10"
+            placeholder="Name your pokemon..."
+            onChange={(e) => handleStats(e)}
+          />
+          {errors.name && <p className="danger">{errors.name}</p>}
         </div>
         <div>
           <label htmlFor="hp">Health:</label>
@@ -75,6 +140,7 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
+          {errors.hp && <p className="danger">{errors.hp}</p>}
         </div>
         <div>
           <label htmlFor="attack">Attack:</label>
@@ -87,6 +153,7 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
+          {errors.attack && <p className="danger">{errors.attack}</p>}
         </div>
         <div>
           <label htmlFor="defense">Defense:</label>
@@ -99,6 +166,7 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
+          {errors.defense && <p className="danger">{errors.defense}</p>}
         </div>
         <div>
           <label htmlFor="speed">Speed:</label>
@@ -111,6 +179,7 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
+          {errors.spped && <p className="danger">{errors.spped}</p>}
         </div>
         <div>
           <label htmlFor="height">Height:</label>
@@ -123,6 +192,7 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
+          {errors.height && <p className="danger">{errors.height}</p>}
         </div>
         <div>
           <label htmlFor="weight">Weight:</label>
@@ -135,6 +205,7 @@ export default function CardCreate() {
             max="1000"
             onChange={(e) => handleStats(e)}
           />
+          {errors.weight && <p className="danger">{errors.weight}</p>}
         </div>
         <fieldset>
           <legend>Choose your pokemon's types:</legend>
@@ -142,15 +213,22 @@ export default function CardCreate() {
             types.map((t) => {
               return (
                 <div key={t.id}>
-                  <input type="checkbox" id={t.name} name={t.name} onChange={(e) => handleCheckBox(e)} />
+                  <input
+                    type="checkbox"
+                    id={t.name}
+                    name={t.name}
+                    onChange={(e) => handleCheckBox(e)}
+                  />
                   <label htmlFor={t.name}>{t.name}</label>
                 </div>
               );
             })}
         </fieldset>
-        <button type="submit" onClick={e => handleSubmit(e)}>Create Pokemon</button>
+        <button type="submit" onClick={(e) => handleSubmit(e)}>
+          Create Pokemon
+        </button>
       </form>
-      <button onClick={() => handleHome()}>Return To Home</button>
+      <button onClick={() => home.push("/home")}>Return To Home</button>
     </div>
   );
 }

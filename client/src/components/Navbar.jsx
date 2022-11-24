@@ -12,28 +12,31 @@ import {
 export default function Navbar() {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.types);
+  const focus = document.querySelector('#focus')
   useEffect(() => {
     dispatch(getTypes());
   }, []);
 
   const handleFilter = (e) => {
     e.preventDefault();
-    console.log(e.target.id);
     dispatch(filterPokemons(e.target.id, e.target.value));
+    //focus.setAttribute('selected', undefined)
   };
 
   const handleOrigin = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     if (e.target.value === "existing") dispatch(existingPokemons());
     else if (e.target.value === "created") dispatch(createdPokemons());
     else dispatch(getPokemons());
+    //focus.setAttribute('selected', true)
   };
-
+  console.log(focus)
   return (
     <header>
-      <select id="filter" onChange={(e) => handleFilter(e)}>
-        <option value="">-- Order --</option>
+      <select id="filter" onChange={(e) => handleFilter(e)} value="">
+        <option id="focus" value="">
+          -- Order --
+        </option>
         <option value="asc">A-Z</option>
         <option value="desc">Z-A</option>
       </select>
