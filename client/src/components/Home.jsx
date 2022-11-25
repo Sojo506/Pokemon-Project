@@ -31,11 +31,11 @@ export default function Home() {
 
   return (
     <div className={styles.main}>
-      <header>
-        <SearchBar />
-        <Navbar />
+      <header className={styles.header}>
+        <SearchBar /> {/* delete setPage  {/* delete setPage */}
+        <Navbar /> {/* delete setPage  {/* delete setPage */}
         <Link to="/home/create">
-          <button>Create</button>
+          <button className={styles.btn}>Create</button>
         </Link>
       </header>
       <Paginated
@@ -43,23 +43,23 @@ export default function Home() {
         pokemonsPage={pokemonsPage}
         paginated={paginated}
       />
-      {/* <h2>Pokemons</h2> */}
-      <ul className={styles.container}>
+      <div className={styles.container}>
         {showPokemons &&
           showPokemons.map((p) => {
             return (
-              <Link  key={aux++} to={`/home/pokemon/${p.id}`}>
-                <li>
+              <Link key={aux++} to={`/home/pokemon/${p.id}`}>
+                <div>
                   <Card
                     image={p.image}
                     name={p.name}
                     types={p.createdInDb ? p.types.map((t) => t.name) : p.types}
                   />
-                </li>
+                </div>
               </Link>
             );
           })}
-      </ul>
+      </div>
+      <p className={styles.viewPage}>Page: {page}</p>
     </div>
   );
 }

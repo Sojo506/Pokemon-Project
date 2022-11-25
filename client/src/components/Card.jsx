@@ -1,26 +1,27 @@
 import React from "react";
+import styles from "../styles/Card.module.css";
 
 export default function Card({ image, name, types }) {
   
   return (
-    <div>
+    <div className={styles.card}>
       <img 
         src={image} 
         alt={name} 
-        width='300'
+        className={styles.image}
       />
       <h3>{name}</h3>
-      <ul>
+      <p className={styles.types}>
         {
           types && types.map(t => {
             return (
-              <li key={t}>
+              <p key={t}>
                 {t}
-              </li>
+              </p>
             )
           })
         }
-      </ul>
+      </p>
     </div>
   );
 }

@@ -11,6 +11,7 @@ export default function CardDetail(props) {
 
   useEffect(() => {
     dispatch(getPokemonDetail(props.match.params.id));
+    /* return () => dispatch(clear()) */ // delete
   }, []);
 
   const handleHome = () => {
@@ -28,6 +29,7 @@ export default function CardDetail(props) {
     <div>
       {Array.isArray(pokemon) && (
         <div>
+          <p>{pokemon[0].id}</p>
           <h2>{pokemon[0].name}</h2>
           <ul>
             {pokemon[0].createdInDb

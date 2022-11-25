@@ -1,0 +1,23 @@
+.container {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .container {
+    display: grid;
+    justify-content: unset;
+  }
+}
+
+.items {
+  text-align: center;
+  outline: none;
+  font-family: inherit;
+  padding: .1rem;
+  border-radius: .5rem;
+  text-transform: capitalize;
+}

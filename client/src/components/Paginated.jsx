@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../styles/Paginated.module.css";
 
 export default function Paginated({ pokemons, pokemonsPage, paginated }) {
   const pages = [];
@@ -8,7 +9,7 @@ export default function Paginated({ pokemons, pokemonsPage, paginated }) {
   pages.splice(pages.length-1, 1)
   return (
     <div>
-      <ul>
+      <ul className={styles.pageContainer}>
         {pages &&
           pages.map((p) => {
             return (

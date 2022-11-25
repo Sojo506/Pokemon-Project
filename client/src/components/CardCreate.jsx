@@ -97,7 +97,7 @@ export default function CardCreate() {
     if (Object.keys(errors).length > 0)
       return alert("One or more paremeters are missing");
     if (!checkboxes.length) return alert("At least select one type");
-    if (checkboxes.length > 5) return alert("Please select less than 5 types");
+    if (checkboxes.length > 2) return alert("Please select less than 3 types");
 
     dispatch(createPokemon({ ...input, types: checkboxes }));
     alert("Pokemon created!");

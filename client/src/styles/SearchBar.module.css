@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.container input {
+  border: none;
+  outline: none;
+  padding: .2rem;
+  font-size: 1.3rem;
+  border-radius: .2rem;
+}
+
+.container input:focus {
+  outline: 1px solid #333;
+}
+
+.btn {
+  border: none;
+  width: 100%;
+  padding: .2rem;
+  font-family: inherit;
+  color: #fff;
+  background-color: hsl(345deg 100% 47%);
+  box-shadow: 2px 2px 3px #333;
+  cursor: pointer;
+}
+
+.btn:hover {
+  box-shadow: 2px 2px 1px #333;
+}

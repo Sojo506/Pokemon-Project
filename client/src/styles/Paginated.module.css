@@ -1,0 +1,23 @@
+.pageContainer {
+  display: flex;
+  list-style-type: none;
+  gap: 1.5rem;
+}
+
+.pageContainer li button {
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  background-color: #3761ab;
+  font-family: "Roboto";
+  border: 1px solid #333;
+  cursor: pointer;
+  color: #fff;
+  border-radius: .2rem;
+}
+
+.pageContainer li button:hover {
+  color: #333;
+  background-color: #fff;
+  box-shadow: 1px 1px 1px #333;
+}

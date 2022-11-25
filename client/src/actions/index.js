@@ -6,6 +6,7 @@ export const GET_POKEMONS_API = "GET_POKEMONS_API";
 export const GET_POKEMONS_DB = "GET_POKEMONS_DB";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
+export const CLEAR = "CLEAR";
 
 export function getPokemons() {
   return function (dispatch) {
@@ -75,6 +76,7 @@ export function filterPokemons(filter, value) {
       });
   };
 }
+
 export function existingPokemons() {
   return function (dispatch) {
     return fetch("http://localhost:3001/pokemons/api")
@@ -104,3 +106,8 @@ export function getTypes() {
       });
   };
 }
+
+/* export function clear() {
+  return { type: CLEAR }
+}
+ */
