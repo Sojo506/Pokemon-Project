@@ -1,0 +1,84 @@
+.loading {
+  min-height: 100vh;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LOADING */
+.waviy {
+  text-align: center;
+  margin-bottom: .5rem;
+}
+.waviy span {
+  position: relative;
+  display: inline-block;
+  font-size: 3rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  animation: flip 3s infinite .9s;
+}
+
+@keyframes flip {
+  0%,
+  80% {
+    transform: rotateY(360deg);
+  }
+}
+
+/* PROGRESS BAR */
+.progressContainer {
+  width: 90%;
+  height: auto;
+}
+
+.progressBar {
+  height: 1rem;
+  background-color: #ef2d56;
+}
+
+.progressContainer h3 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 0 0 0.4rem;
+}
+
+.progress {
+  height: 15px;
+  background-color: #141b3c;
+  border-radius: 20px;
+  box-shadow: 0 2px 2px #4f4c4c;
+  margin-bottom: 40px;
+  overflow: visible;
+  position: relative;
+}
+
+.progress .progressBar {
+  border-radius: 20px;
+  border: 1px solid #000;
+  animation: animated-bar 2s;
+}
+
+.progress .progressValue {
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+  background-color: #171b3c;
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 0 0 15px 15px;
+  border: 1px solid #000;
+  border-top: none;
+  box-shadow: 0 2px 2px #4f4c4c;
+  position: absolute;
+  bottom: -25px;
+  right: 60px;
+  text-align: center;
+}
+
+@keyframes animated-bar {
+  0% {
+    width: 0%;
+  }
+}

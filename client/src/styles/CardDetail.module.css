@@ -115,7 +115,7 @@
 .progress .progressBar {
   border-radius: 20px;
   border: 1px solid #000;
-  animation: animated-positive 2s;
+  animation: animated-bar 2s;
 }
 
 .progress .progressValue {
@@ -135,7 +135,7 @@
   text-align: center;
 }
 
-@keyframes animated-positive {
+@keyframes animated-bar {
   0% {
     width: 0%;
   }

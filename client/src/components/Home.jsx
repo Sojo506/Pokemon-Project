@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 import Paginated from "./Paginated";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
-let aux = 0;
+
 export default function Home() {
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.pokemons);
@@ -47,7 +47,7 @@ export default function Home() {
         {showPokemons &&
           showPokemons.map((p) => {
             return (
-              <Link key={aux++} to={`/home/pokemon/${p.id}`}>
+              <Link key={p.id} to={`/home/pokemon/${p.id}`}>
                 <li>
                   <Card
                     image={p.image}

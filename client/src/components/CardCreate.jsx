@@ -108,7 +108,6 @@ export default function CardCreate() {
   };
 
   const handleReset = () => {
-    if(input)
     setInput({
       name: "",
       hp: "",
