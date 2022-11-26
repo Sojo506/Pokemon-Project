@@ -100,7 +100,13 @@ const getPokemons = async (req, res) => {
     if (type) {
       console.log(Type_Pokemon);
       // TO DO: FILTER BY TYPE
-      return res.json(pokemons.filter((p) => p.types.includes(type)));
+      return res.json(
+        pokemons.filter((p) => {
+          return p.id.length === 36
+            ? p.types.some((t) => t.name === type)
+            : p.types.includes(type);
+        })
+      );
     }
 
     res.json(pokemons);
@@ -130,11 +136,11 @@ const getPokemonsByDb = async (req, res) => {
 // GET /pokemons/:id(/:name)
 const getPokemonByIdOrName = async (req, res) => {
   const { id } = req.params;
-  if(id.length === 36) {
-    console.log('Buscando en DB')
+  if (id.length === 36) {
+    console.log("Buscando en DB");
     const pokemonDb = await Pokemon.findOne({
       where: {
-        id
+        id,
       },
       include: {
         model: Type,
@@ -143,11 +149,11 @@ const getPokemonByIdOrName = async (req, res) => {
           attributes: [],
         },
       },
-    })
+    });
     return res.json([{ ...pokemonDb._previousDataValues }]);
   }
   try {
-    console.log('Buscando en API')
+    console.log("Buscando en API");
     const data = await axios
       .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((response) => response.data);
@@ -173,20 +179,29 @@ const getPokemonByIdOrName = async (req, res) => {
 const createPokemon = async (req, res) => {
   const { name, hp, attack, defense, speed, height, weight, image, types } =
     req.body;
-  console.log(req.body)
+  console.log(req.body);
   try {
-    if (!name || !hp || !attack || !defense || !speed || !height || !weight || !types.length) {
+    if (
+      !name ||
+      !hp ||
+      !attack ||
+      !defense ||
+      !speed ||
+      !height ||
+      !weight ||
+      !types.length
+    ) {
       throw new Error("Some parameters are missing");
     }
 
     const poke = await Pokemon.create({
       name,
-      hp :parseInt(hp),
-      attack :parseInt(attack),
-      defense :parseInt(defense),
-      speed :parseInt(speed),
-      height :parseInt(height),
-      weight :parseInt(weight),
+      hp: parseInt(hp),
+      attack: parseInt(attack),
+      defense: parseInt(defense),
+      speed: parseInt(speed),
+      height: parseInt(height),
+      weight: parseInt(weight),
     });
 
     const typesDb = await Type.findAll({ where: { name: types } });
