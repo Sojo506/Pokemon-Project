@@ -11,17 +11,17 @@ export default function Card({ image, name, types }) {
         className={styles.image}
       />
       <h3>{name}</h3>
-      <p className={styles.types}>
+      <ul className={styles.types}>
         {
           types && types.map(t => {
             return (
-              <p key={t}>
+              <li key={t}>
                 {t}
-              </p>
+              </li>
             )
           })
         }
-      </p>
+      </ul>
     </div>
   );
 }

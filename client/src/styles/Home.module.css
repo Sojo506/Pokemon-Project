@@ -23,14 +23,15 @@
   cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:active {
   box-shadow: 2px 2px 1px #333;
 }
 
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 2rem;
   text-align: center;
 }
 

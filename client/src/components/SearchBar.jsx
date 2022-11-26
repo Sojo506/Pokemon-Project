@@ -36,7 +36,7 @@ export default function SearchBar(props) {
         name="searchbar"
       />
       <button className={styles.btn} type="submit" onClick={(e) => handleSubmit(e)}>
-        Catch It!
+        Catch Them!
       </button>
     </div>
   );

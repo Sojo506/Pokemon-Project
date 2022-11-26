@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getTypes, createPokemon } from "../actions";
+import styles from "../styles/CardCreate.module.css";
 
 export default function CardCreate() {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ export default function CardCreate() {
     height: "",
     weight: "",
   });
+  const form = document.querySelector(".form");
+  console.log(form);
 
   // FORM VALIDATE
   function validate(input) {
@@ -101,7 +104,12 @@ export default function CardCreate() {
 
     dispatch(createPokemon({ ...input, types: checkboxes }));
     alert("Pokemon created!");
-    /* setInput({
+    home.push("/home");
+  };
+
+  const handleReset = () => {
+    if(input)
+    setInput({
       name: "",
       hp: "",
       attack: "",
@@ -109,14 +117,14 @@ export default function CardCreate() {
       speed: "",
       height: "",
       weight: "",
-    }); */
-    home.push("/home");
+    });
+    setErrors({});
   };
-  
+
   return (
-    <div>
-      <form>
-        <div>
+    <div className={styles.container}>
+      <form className={styles.form}>
+        <div id={styles.firstOne} className={styles.formItems}>
           <label htmlFor="name">Name:</label>
           <input
             value={input.name}
@@ -124,15 +132,17 @@ export default function CardCreate() {
             name="name"
             type="text"
             maxLength="10"
-            placeholder="Name your pokemon..."
+            placeholder="Name it!"
             onChange={(e) => handleStats(e)}
           />
-          {errors.name && <p className="danger">{errors.name}</p>}
+          {errors.name && <p className={styles.error}>{errors.name}</p>}
         </div>
-        <div>
+
+        <div className={styles.formItems}>
           <label htmlFor="hp">Health:</label>
           <input
             value={input.hp}
+            placeholder={Math.floor(Math.random() * 100)}
             id="hp"
             name="hp"
             type="number"
@@ -140,12 +150,14 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
-          {errors.hp && <p className="danger">{errors.hp}</p>}
+          {errors.hp && <p className={styles.error}>{errors.hp}</p>}
         </div>
-        <div>
+
+        <div className={styles.formItems}>
           <label htmlFor="attack">Attack:</label>
           <input
             value={input.attack}
+            placeholder={Math.floor(Math.random() * 100)}
             id="attack"
             name="attack"
             type="number"
@@ -153,12 +165,14 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
-          {errors.attack && <p className="danger">{errors.attack}</p>}
+          {errors.attack && <p className={styles.error}>{errors.attack}</p>}
         </div>
-        <div>
+
+        <div className={styles.formItems}>
           <label htmlFor="defense">Defense:</label>
           <input
             value={input.defense}
+            placeholder={Math.floor(Math.random() * 100)}
             id="defense"
             name="defense"
             type="number"
@@ -166,12 +180,14 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
-          {errors.defense && <p className="danger">{errors.defense}</p>}
+          {errors.defense && <p className={styles.error}>{errors.defense}</p>}
         </div>
-        <div>
+
+        <div className={styles.formItems}>
           <label htmlFor="speed">Speed:</label>
           <input
             value={input.speed}
+            placeholder={Math.floor(Math.random() * 100)}
             id="speed"
             name="speed"
             type="number"
@@ -179,12 +195,14 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
-          {errors.spped && <p className="danger">{errors.spped}</p>}
+          {errors.spped && <p className={styles.error}>{errors.spped}</p>}
         </div>
-        <div>
+
+        <div className={styles.formItems}>
           <label htmlFor="height">Height:</label>
           <input
             value={input.height}
+            placeholder={Math.floor(Math.random() * 100)}
             id="height"
             name="height"
             type="number"
@@ -192,12 +210,14 @@ export default function CardCreate() {
             max="100"
             onChange={(e) => handleStats(e)}
           />
-          {errors.height && <p className="danger">{errors.height}</p>}
+          {errors.height && <p className={styles.error}>{errors.height}</p>}
         </div>
-        <div>
+
+        <div className={styles.formItems}>
           <label htmlFor="weight">Weight:</label>
           <input
             value={input.weight}
+            placeholder={Math.floor(Math.random() * 1000)}
             id="weight"
             name="weight"
             type="number"
@@ -205,30 +225,52 @@ export default function CardCreate() {
             max="1000"
             onChange={(e) => handleStats(e)}
           />
-          {errors.weight && <p className="danger">{errors.weight}</p>}
+          {errors.weight && <p className={styles.error}>{errors.weight}</p>}
         </div>
-        <fieldset>
-          <legend>Choose your pokemon's types:</legend>
-          {types &&
-            types.map((t) => {
-              return (
-                <div key={t.id}>
-                  <input
-                    type="checkbox"
-                    id={t.name}
-                    name={t.name}
-                    onChange={(e) => handleCheckBox(e)}
-                  />
-                  <label htmlFor={t.name}>{t.name}</label>
-                </div>
-              );
-            })}
-        </fieldset>
-        <button type="submit" onClick={(e) => handleSubmit(e)}>
-          Create Pokemon
-        </button>
       </form>
-      <button onClick={() => home.push("/home")}>Return To Home</button>
+      {/* END OF THE FORM */}
+
+      <fieldset className={styles.types}>
+        <legend>Choose your pokemon's types</legend>
+        {types &&
+          types.map((t) => {
+            return (
+              <div key={t.id} className={styles.typeItems}>
+                <input
+                  type="checkbox"
+                  id={t.name}
+                  name={t.name}
+                  onChange={(e) => handleCheckBox(e)}
+                />
+                <label className={styles.typeLabel} htmlFor={t.name}>
+                  {t.name}
+                </label>
+              </div>
+            );
+          })}
+      </fieldset>
+
+      <div className={styles.btns}>
+        <button
+          className={styles.btn}
+          type="submit"
+          onClick={(e) => handleSubmit(e)}
+        >
+          Catch It!
+        </button>
+        <button className={styles.btn} onClick={() => home.push("/home")}>
+          Return To Home
+        </button>
+        <button className={styles.btn} onClick={() => handleReset()}>
+          Reset
+        </button>
+      </div>
+      <div className={styles.image}>
+        <img
+          src="https://www.pinclipart.com/picdir/big/300-3009374_pokemon-go-clipart-pokeball-png-download.png"
+          alt="pokeball"
+        />
+      </div>
     </div>
   );
 }

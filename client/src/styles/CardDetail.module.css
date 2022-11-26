@@ -1,0 +1,159 @@
+.container {
+  height: 100vh;
+  width: 100%;
+}
+
+.pokeContainer {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  padding: 3rem;
+  gap: 2rem;
+}
+
+.info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 3rem 0 0;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid #3761ab;
+  width: 100%;
+  max-width: 980px;
+  background-color: #333;
+  padding: 0.1rem;
+  position: relative;
+  border-radius: 2rem;
+  color: #fff;
+  box-shadow: 10px 7px 1px #333;
+}
+
+.info h1 {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  letter-spacing: 1px;
+}
+
+.info h2 {
+  font-size: 3rem;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 720px) {
+  .info {
+    flex-direction: column;
+    padding: 2rem;
+    margin: 0;
+    box-shadow: 5px 3px 1px #333;
+  }
+}
+
+.types {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.types li {
+  font-size: 1.5rem;
+  color: #fbc02d;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+
+
+
+.stats {
+  width: 100%;
+  max-width: 980px;
+  padding: 1rem;
+  border-radius: 2rem;
+}
+.stats legend {
+  font-size: 2.5rem;
+  color: #333;
+  padding: 1rem;
+}
+
+.image{
+  height: 320px;
+}
+
+/* PROGRESS BAR */
+.progressContainer {
+  width: 100%;
+  height: auto;
+}
+
+.progressBar {
+  height: 1rem;
+  background-color: #ef2d56;
+}
+
+.progressContainer h3 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 0 0 0.4rem;
+}
+
+.progress {
+  height: 15px;
+  background-color: #141b3c;
+  border-radius: 20px;
+  box-shadow: 0 2px 2px #4f4c4c;
+  margin-bottom: 40px;
+  overflow: visible;
+  position: relative;
+}
+
+.progress .progressBar {
+  border-radius: 20px;
+  border: 1px solid #000;
+  animation: animated-positive 2s;
+}
+
+.progress .progressValue {
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+  background-color: #171b3c;
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 0 0 15px 15px;
+  border: 1px solid #000;
+  border-top: none;
+  box-shadow: 0 2px 2px #4f4c4c;
+  position: absolute;
+  bottom: -25px;
+  right: 60px;
+  text-align: center;
+}
+
+@keyframes animated-positive {
+  0% {
+    width: 0%;
+  }
+}
+
+.btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  border: none;
+  padding: 1rem;
+  font-family: inherit;
+  color: #fff;
+  background-color: hsl(345deg 100% 47%);
+  box-shadow: 2px 2px 3px #333;
+  cursor: pointer;
+}
+
+.btn:hover {
+  box-shadow: 2px 2px 1px #333;
+}

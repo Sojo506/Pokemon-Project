@@ -43,22 +43,22 @@ export default function Home() {
         pokemonsPage={pokemonsPage}
         paginated={paginated}
       />
-      <div className={styles.container}>
+      <ul className={styles.container}>
         {showPokemons &&
           showPokemons.map((p) => {
             return (
               <Link key={aux++} to={`/home/pokemon/${p.id}`}>
-                <div>
+                <li>
                   <Card
                     image={p.image}
                     name={p.name}
                     types={p.createdInDb ? p.types.map((t) => t.name) : p.types}
                   />
-                </div>
+                </li>
               </Link>
             );
           })}
-      </div>
+      </ul>
       <p className={styles.viewPage}>Page: {page}</p>
     </div>
   );
