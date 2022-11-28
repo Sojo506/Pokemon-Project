@@ -3,7 +3,7 @@ const {
   getPokemons,
   getPokemonsByApi,
   getPokemonsByDb,
-  getPokemonByIdOrName,
+  getPokemonByIdName,
   createPokemon,
 } = require("../controllers/PokemonController");
 const router = Router();
@@ -12,7 +12,7 @@ const router = Router();
 router.get("/", getPokemons);
 router.get("/api", getPokemonsByApi);
 router.get("/db", getPokemonsByDb);
-router.get("/:id", getPokemonByIdOrName);
+router.get("/:id", getPokemonByIdName);
 router.post("/", createPokemon);
 
 module.exports = router;

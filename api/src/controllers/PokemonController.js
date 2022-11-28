@@ -133,8 +133,8 @@ const getPokemonsByDb = async (req, res) => {
   }
 };
 
-// GET /pokemons/:id(/:name)
-const getPokemonByIdOrName = async (req, res) => {
+// GET /pokemons/:id
+const getPokemonByIdName = async (req, res) => {
   const { id } = req.params;
   if (id.length === 36) {
     console.log("Buscando en DB");
@@ -150,8 +150,25 @@ const getPokemonByIdOrName = async (req, res) => {
         },
       },
     });
+    console.log(pokemonDb)
     return res.json([{ ...pokemonDb._previousDataValues }]);
   }
+  
+  //if not... try searching by name
+  const pokemonDb = await Pokemon.findOne({
+    where: {
+      name: id,
+    },
+    include: {
+      model: Type,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+  if(pokemonDb) return res.json([{ ...pokemonDb._previousDataValues }]);
+  
   try {
     console.log("Buscando en API");
     const data = await axios
@@ -195,7 +212,7 @@ const createPokemon = async (req, res) => {
     }
 
     const poke = await Pokemon.create({
-      name,
+      name: name.toLowerCase(),
       hp: parseInt(hp),
       attack: parseInt(attack),
       defense: parseInt(defense),
@@ -217,6 +234,6 @@ module.exports = {
   getPokemons,
   getPokemonsByApi,
   getPokemonsByDb,
-  getPokemonByIdOrName,
+  getPokemonByIdName,
   createPokemon,
 };
