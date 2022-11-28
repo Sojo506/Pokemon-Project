@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getTypes, createPokemon } from "../actions";
 import styles from "../styles/CardCreate.module.css";
+import Loading from "./Loading";
 
 export default function CardCreate() {
   const dispatch = useDispatch();
@@ -227,11 +228,10 @@ export default function CardCreate() {
           {errors.weight && <p className={styles.error}>{errors.weight}</p>}
         </div>
       </form>
-      {/* END OF THE FORM */}
 
       <fieldset className={styles.types}>
         <legend>Choose your pokemon's types</legend>
-        {types &&
+        {types.length &&
           types.map((t) => {
             return (
               <div key={t.id} className={styles.typeItems}>

@@ -1,6 +1,9 @@
 .loading {
-  min-height: 100vh;
-  background-color: #333;
+  margin-top: 3rem;
+  min-width: 320px;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,6 +21,7 @@
   letter-spacing: 2.5px;
   text-transform: uppercase;
   animation: flip 3s infinite .9s;
+  color: #333;
 }
 
 @keyframes flip {

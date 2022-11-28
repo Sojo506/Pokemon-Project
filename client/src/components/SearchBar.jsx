@@ -24,8 +24,8 @@ export default function SearchBar(props) {
 
     setTimeout(() => {
       setPokeSearch("");
-    }, 3000);
-    // props.setPage(1)
+    }, 2000);
+    props.setPage(1)
   };
   return (
     <div className={styles.container}>

@@ -19,7 +19,7 @@ export default function Navbar(props) {
   const handleFilter = (e) => {
     e.preventDefault();
     dispatch(filterPokemons(e.target.id, e.target.value));
-    // delete props.setPage(1)
+    props.setPage(1) // DELETE THIS
   };
 
   const handleOrigin = (e) => {

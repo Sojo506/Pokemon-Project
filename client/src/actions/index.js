@@ -107,7 +107,7 @@ export function getTypes() {
   };
 }
 
-/* export function clear() {
+/* DELETE THIS */
+export function clear() {
   return { type: CLEAR }
 }
- */

@@ -7,6 +7,7 @@ import Navbar from "./Navbar";
 import Paginated from "./Paginated";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -14,12 +15,11 @@ export default function Home() {
   //const pokemon = useSelector((state) => state.pokemon);
 
   const [page, setPage] = useState(1);
-  const [pokemonsPage, setPokemonsPage] = useState(12);
-  const lastOne = page * pokemonsPage; // 12 / 24
-  const fistOne = lastOne - pokemonsPage; // 12 - 12 = 0 / 24 - 12 = 12
+  const [pokemonsByPage, setPokemonsByPage] = useState(12);
+  const lastOne = page * pokemonsByPage; // 12 / 24
+  const fistOne = lastOne - pokemonsByPage; // 12 - 12 = 0 / 24 - 12 = 12
 
   const showPokemons = pokemons.slice(fistOne, lastOne); // 0, 12 - 12, 24
-  console.log(showPokemons);
 
   useEffect(() => {
     dispatch(getPokemons());
@@ -32,19 +32,19 @@ export default function Home() {
   return (
     <div className={styles.main}>
       <header className={styles.header}>
-        <SearchBar /> {/* delete setPage  {/* delete setPage */}
-        <Navbar /> {/* delete setPage  {/* delete setPage */}
+        <SearchBar setPage={setPage} /> {/* DELETE setPage={setPage} */}
+        <Navbar setPage={setPage} /> {/* DELETE setPage={setPage} */}
         <Link to="/home/create">
           <button className={styles.btn}>Create</button>
         </Link>
       </header>
       <Paginated
         pokemons={pokemons.length}
-        pokemonsPage={pokemonsPage}
+        pokemonsPage={pokemonsByPage}
         paginated={paginated}
       />
       <ul className={styles.container}>
-        {showPokemons &&
+        {showPokemons.length ? (
           showPokemons.map((p) => {
             return (
               <Link key={p.id} to={`/home/pokemon/${p.id}`}>
@@ -57,8 +57,12 @@ export default function Home() {
                 </li>
               </Link>
             );
-          })}
+          })
+        ) : (
+          <Loading />
+        )}
       </ul>
+
       <p className={styles.viewPage}>Page: {page}</p>
     </div>
   );

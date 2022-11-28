@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getPokemonDetail } from "../actions";
+import { getPokemonDetail, clear } from "../actions";
 import styles from "../styles/CardDetail.module.css";
+import Loading from "./Loading";
 
 export default function CardDetail(props) {
   const dispatch = useDispatch();
@@ -12,12 +13,12 @@ export default function CardDetail(props) {
 
   useEffect(() => {
     dispatch(getPokemonDetail(props.match.params.id));
-    /* return () => dispatch(clear()) */ // delete
+    return () => dispatch(clear()) // DELETE THIS
   }, []);
 
   return (
     <div className={styles.container}>
-      {Array.isArray(pokemon) && (
+      {pokemon.length ? (
         <div className={styles.pokeContainer}>
           <div className={styles.info}>
             <div>
@@ -155,7 +156,7 @@ export default function CardDetail(props) {
             Return
           </button>
         </div>
-      )}
+      ): <Loading />}
     </div>
   );
 }
