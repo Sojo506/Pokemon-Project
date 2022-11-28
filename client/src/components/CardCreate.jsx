@@ -97,8 +97,14 @@ export default function CardCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let aux = 0
+    for(let i in input) {
+      if(!input[i]) aux++
+    }
 
-    if (Object.keys(errors).length > 0)
+    console.log(aux)
+
+    if (Object.keys(errors).length > 0 || aux > 0)
       return alert("One or more paremeters are missing");
     if (!checkboxes.length) return alert("At least select one type");
     if (checkboxes.length > 2) return alert("Please select less than 3 types");
