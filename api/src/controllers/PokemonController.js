@@ -60,7 +60,6 @@ const getPokemons = async (req, res) => {
 
     // FILTER BY TYPE
     if (type) {
-      console.log(Type_Pokemon);
       // TO DO: FILTER BY TYPE
       return res.json(
         pokemons.filter((p) => {

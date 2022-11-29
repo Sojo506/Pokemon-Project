@@ -18,7 +18,7 @@ export default function Home() {
   const [pokemonsByPage, setPokemonsByPage] = useState(12);
   const lastOne = page * pokemonsByPage; // 12 / 24
   const fistOne = lastOne - pokemonsByPage; // 12 - 12 = 0 / 24 - 12 = 12
-
+  console.log(pokemons)
   const showPokemons = pokemons.slice(fistOne, lastOne); // 0, 12 - 12, 24
 
   useEffect(() => {
@@ -32,8 +32,8 @@ export default function Home() {
   return (
     <div className={styles.main}>
       <header className={styles.header}>
-        <SearchBar setPage={setPage} />
-        <Navbar setPage={setPage} />
+        <SearchBar />
+        <Navbar />
         <Link to="/home/create">
           <button className={styles.btn}>Create</button>
         </Link>

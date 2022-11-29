@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getPokemonDetail, clearPokemon } from "../actions";
+import { getPokemonDetail } from "../actions";
 import styles from "../styles/CardDetail.module.css";
 import Loading from "./Loading";
 
@@ -13,7 +13,6 @@ export default function CardDetail(props) {
 
   useEffect(() => {
     dispatch(getPokemonDetail(props.match.params.id));
-    return () => dispatch(clearPokemon()); // SET THE POKEMON OBJECT TO EMPTY TO AVOID A DELAY ON THE DATA OF THE POKEMON
   }, []);
 
   return (
@@ -154,7 +153,7 @@ export default function CardDetail(props) {
           </fieldset>
           {/* END OF STATS */}
 
-          <button className={styles.btn} onClick={() => home.push("/home")}>
+          <button className={styles.btn} onClick={() => home.push(`/home`)}>
             Return
           </button>
         </div>

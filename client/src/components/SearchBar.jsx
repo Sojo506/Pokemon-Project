@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { getPokemon, getPokemons } from "../actions";
 import styles from '../styles/SearchBar.module.css';
 
-export default function SearchBar(props) {
+export default function SearchBar() {
   const dispatch = useDispatch();
   const [pokeSearch, setPokeSearch] = useState("");
   const regex = /^[a-zA-Z]*$/;
@@ -25,7 +25,6 @@ export default function SearchBar(props) {
     setTimeout(() => {
       setPokeSearch(""); // SET THE INPUT SEARCH TO EMPTY
     }, 2000);
-    props.setPage(1) // SET THE PAGINATED TO 1
   };
   return (
     <div className={styles.container}>

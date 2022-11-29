@@ -6,7 +6,6 @@ export const GET_POKEMONS_API = "GET_POKEMONS_API";
 export const GET_POKEMONS_DB = "GET_POKEMONS_DB";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
-export const CLEAR_POKEMON = "CLEAR";
 
 export function getPokemons() { // GET ALL THE POKEMONS TO RENDER THEM ON HOME
   return function (dispatch) {
@@ -105,8 +104,4 @@ export function getTypes() { // GET ALL THE POKEMON'S TYPES
         dispatch({ type: GET_TYPES, payload: json });
       });
   };
-}
-
-export function clearPokemon() { // CLEAR THE POKEMON OBJECT
-  return { type: CLEAR_POKEMON }
 }
