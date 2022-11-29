@@ -18,6 +18,7 @@ export default function Navbar(props) {
 
   const handleFilter = (e) => {
     e.preventDefault();
+    console.log("PROBANDO FILTER ",e.target.id, e.target.value)
     dispatch(filterPokemons(e.target.id, e.target.value));
     props.setPage(1) // DELETE THIS
   };
@@ -40,6 +41,12 @@ export default function Navbar(props) {
         <option value="all">-- All Origins --</option>
         <option value="created">Created</option>
         <option value="existing">Existing</option>
+      </select>
+
+      <select className={styles.items} id="attack" onChange={(e) => handleFilter(e)}>
+        <option value="">-- Order Attack --</option>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
       </select>
 
       <select className={styles.items} id="type" onChange={(e) => handleFilter(e)}>

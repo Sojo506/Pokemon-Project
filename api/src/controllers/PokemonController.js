@@ -6,13 +6,12 @@ const {
   getBothPokemons,
   findPokemonDb,
   findPokemonApi,
-  deletePokemonDb,
 } = require("../utils/PokemonUtils");
 
 // ================= HTTP METHODS ===================
 // GET /pokemons
 const getPokemons = async (req, res) => {
-  const { filter, type } = req.query;
+  const { filter, type, attack } = req.query;
   try {
     const pokemons = await getBothPokemons();
 
@@ -45,6 +44,18 @@ const getPokemons = async (req, res) => {
           return aux;
         })
       );
+    }
+
+    // FILTER BY ATTACK
+    if (attack) {
+      if (attack === "asc") {
+        // ASCENDING
+        console.log("FILTRANDO ATTACK BRO ASCENDING", pokemons.sort((a, b) => a.attack - b.attack))
+        return res.json(pokemons.sort((a, b) => a.attack - b.attack));
+      }
+      console.log("FILTRANDO ATTACK BRO DESCENDING", pokemons.sort((a, b) => a.attack + b.attack))
+      // DESCENDING
+      return res.json(pokemons.sort((a, b) =>  b.attack - a.attack));
     }
 
     // FILTER BY TYPE
