@@ -32,8 +32,8 @@ export default function Home() {
   return (
     <div className={styles.main}>
       <header className={styles.header}>
-        <SearchBar setPage={setPage} /> {/* DELETE setPage={setPage} */}
-        <Navbar setPage={setPage} /> {/* DELETE setPage={setPage} */}
+        <SearchBar setPage={setPage} />
+        <Navbar setPage={setPage} />
         <Link to="/home/create">
           <button className={styles.btn}>Create</button>
         </Link>

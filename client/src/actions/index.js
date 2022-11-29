@@ -6,9 +6,9 @@ export const GET_POKEMONS_API = "GET_POKEMONS_API";
 export const GET_POKEMONS_DB = "GET_POKEMONS_DB";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
-export const CLEAR = "CLEAR";
+export const CLEAR_POKEMON = "CLEAR";
 
-export function getPokemons() {
+export function getPokemons() { // GET ALL THE POKEMONS TO RENDER THEM ON HOME
   return function (dispatch) {
     return fetch("http://localhost:3001/pokemons")
       .then((response) => response.json())
@@ -18,7 +18,7 @@ export function getPokemons() {
   };
 }
 
-export function getPokemon(value) {
+export function getPokemon(value) { // IT HELPS TO GET A POKEMON
   try {
     return function (dispatch) {
       return fetch(`http://localhost:3001/pokemons/${value}`)
@@ -34,7 +34,7 @@ export function getPokemon(value) {
   }
 }
 
-export function getPokemonDetail(value) {
+export function getPokemonDetail(value) { // SHOW THE POKEMON'S DETAILS
   try {
     return function (dispatch) {
       return fetch(`http://localhost:3001/pokemons/${value}`)
@@ -50,7 +50,7 @@ export function getPokemonDetail(value) {
   }
 }
 
-export function createPokemon(pokemon) {
+export function createPokemon(pokemon) { // CREATE A POKEMON
   return function (dispatch) {
     return fetch("http://localhost:3001/pokemons", {
       method: "POST",
@@ -67,7 +67,7 @@ export function createPokemon(pokemon) {
   };
 }
 
-export function filterPokemons(filter, value) {
+export function filterPokemons(filter, value) { // FILTER BY NAME, ATTACK OR TYPE
   return function (dispatch) {
     return fetch(`http://localhost:3001/pokemons?${filter}=${value}`)
       .then((response) => response.json())
@@ -77,7 +77,7 @@ export function filterPokemons(filter, value) {
   };
 }
 
-export function existingPokemons() {
+export function existingPokemons() { // GET ALL OF THE CREATED POKEMONS FROM API
   return function (dispatch) {
     return fetch("http://localhost:3001/pokemons/api")
       .then((response) => response.json())
@@ -87,7 +87,7 @@ export function existingPokemons() {
   };
 }
 
-export function createdPokemons() {
+export function createdPokemons() { // GET ALL OF THE CREATED POKEMONS FROM DB
   return function (dispatch) {
     return fetch("http://localhost:3001/pokemons/db")
       .then((response) => response.json())
@@ -97,7 +97,7 @@ export function createdPokemons() {
   };
 }
 
-export function getTypes() {
+export function getTypes() { // GET ALL THE POKEMON'S TYPES
   return function (dispatch) {
     return fetch("http://localhost:3001/types")
       .then((response) => response.json())
@@ -107,7 +107,6 @@ export function getTypes() {
   };
 }
 
-/* DELETE THIS */
-export function clear() {
-  return { type: CLEAR }
+export function clearPokemon() { // CLEAR THE POKEMON OBJECT
+  return { type: CLEAR_POKEMON }
 }

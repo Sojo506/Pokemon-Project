@@ -13,14 +13,14 @@ export default function Navbar(props) {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.types);
   useEffect(() => {
-    dispatch(getTypes());
+    dispatch(getTypes()); // GET THE TYPES
   }, []);
 
   const handleFilter = (e) => {
     e.preventDefault();
     console.log("PROBANDO FILTER ",e.target.id, e.target.value)
     dispatch(filterPokemons(e.target.id, e.target.value));
-    props.setPage(1) // DELETE THIS
+    props.setPage(1) // SET THE PAGINATED TO 1
   };
 
   const handleOrigin = (e) => {
@@ -29,10 +29,11 @@ export default function Navbar(props) {
     else if (e.target.value === "created") dispatch(createdPokemons());
     else dispatch(getPokemons());
   };
+
   return (
     <header className={styles.container}>
       <select className={styles.items} id="filter" onChange={(e) => handleFilter(e)}>
-        <option value="">-- Order --</option>
+        <option value="">-- Order By Name --</option>
         <option value="asc">A-Z</option>
         <option value="desc">Z-A</option>
       </select>
@@ -44,7 +45,7 @@ export default function Navbar(props) {
       </select>
 
       <select className={styles.items} id="attack" onChange={(e) => handleFilter(e)}>
-        <option value="">-- Order Attack --</option>
+        <option value="">-- Order By Attack --</option>
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
       </select>

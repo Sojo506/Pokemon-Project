@@ -17,12 +17,7 @@ export default function Loading() {
           <span>.</span>
         </div>
         <div className={styles.progress}>
-          <div
-            className={styles.progressBar}
-            style={{
-              width: "100%",
-            }}
-          >
+          <div className={styles.progressBar}>
             <div className={styles.progressValue}>100%</div>
           </div>
         </div>

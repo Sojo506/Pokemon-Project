@@ -7,7 +7,7 @@ import {
   FILTER_POKEMONS,
   GET_POKEMONS_API,
   GET_POKEMONS_DB,
-  CLEAR
+  CLEAR_POKEMON
 } from "../actions";
 
 const initialState = {
@@ -59,7 +59,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         pokemons: action.payload,
       };
-    case CLEAR: /* DELETE THIS */
+    case CLEAR_POKEMON:
       return {
         ...state,
         pokemon: {},

@@ -23,9 +23,9 @@ export default function SearchBar(props) {
     }
 
     setTimeout(() => {
-      setPokeSearch("");
+      setPokeSearch(""); // SET THE INPUT SEARCH TO EMPTY
     }, 2000);
-    props.setPage(1)
+    props.setPage(1) // SET THE PAGINATED TO 1
   };
   return (
     <div className={styles.container}>

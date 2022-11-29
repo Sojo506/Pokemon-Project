@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getPokemonDetail, clear } from "../actions";
+import { getPokemonDetail, clearPokemon } from "../actions";
 import styles from "../styles/CardDetail.module.css";
 import Loading from "./Loading";
 
@@ -9,11 +9,11 @@ export default function CardDetail(props) {
   const dispatch = useDispatch();
   let pokemon = useSelector((state) => state.pokemon);
   const home = useHistory();
-  let aux = 0;
+  let aux = 0; // TO AVOID REPEATED KEYS
 
   useEffect(() => {
     dispatch(getPokemonDetail(props.match.params.id));
-    return () => dispatch(clear()) // DELETE THIS
+    return () => dispatch(clearPokemon()); // SET THE POKEMON OBJECT TO EMPTY TO AVOID A DELAY ON THE DATA OF THE POKEMON
   }, []);
 
   return (
@@ -47,6 +47,7 @@ export default function CardDetail(props) {
           {/* STATS */}
           <fieldset className={styles.stats}>
             <legend>Stats</legend>
+
             <div>
               <div className={styles.progressContainer}>
                 <h3>Hp:</h3>
@@ -152,11 +153,14 @@ export default function CardDetail(props) {
             </div>
           </fieldset>
           {/* END OF STATS */}
+
           <button className={styles.btn} onClick={() => home.push("/home")}>
             Return
           </button>
         </div>
-      ): <Loading />}
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 }
