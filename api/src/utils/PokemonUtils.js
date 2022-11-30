@@ -7,17 +7,16 @@ const getPokemonsApi = async () => {
   const pokemons = [];
 
   // SEARCH POKEMOS BY THE API
-  const data2 = await axios({
+  const data = await axios({
     method: "get",
     url: "https://pokeapi.co/api/v2/pokemon?limit=40",
     headers: { "Accept-Encoding": "null" },
-  });
-  const data = await axios
+  }).then((response) => response.data.results);
+/*   const data = await axios
     .get("https://pokeapi.co/api/v2/pokemon?limit=40")
     .then((response) => response.data.results) // GET INTO RESULTS ARRAY (WHERE ARE POKEMONS)
-    .then((pokemon) => pokemon);
+    .then((pokemon) => pokemon); */
   console.log("DATA ", data);
-  console.log("DATA2 ", data2);
   // GET THE URL TO DO A SUBREQUEST
   const urls = data.map((d) => axios.get(d.url)); // PENDING
   console.log("URLS ", urls);
