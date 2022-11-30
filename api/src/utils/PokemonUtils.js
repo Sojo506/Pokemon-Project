@@ -18,7 +18,11 @@ const getPokemonsApi = async () => {
     .then((pokemon) => pokemon); */
   console.log("DATA ", data);
   // GET THE URL TO DO A SUBREQUEST
-  const urls = data.map((d) => axios.get(d.url)); // PENDING
+  const urls = data.map((d) => axios({
+    method: "get",
+    url: d.url,
+    headers: { "Accept-Encoding": "null" },
+  })); // PENDING
   console.log("URLS ", urls);
 
   // RESOLVED THEM ALREADY AND GET DATA FROM THEM
