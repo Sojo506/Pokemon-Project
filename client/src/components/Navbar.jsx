@@ -9,7 +9,7 @@ import {
   createdPokemons,
 } from "../actions";
 
-export default function Navbar(props) {
+export default function Navbar({ setPage }) {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.types);
   useEffect(() => {
@@ -18,9 +18,9 @@ export default function Navbar(props) {
 
   const handleFilter = (e) => {
     e.preventDefault();
-    console.log("PROBANDO FILTER ",e.target.id, e.target.value)
+    console.log("PROBANDO FILTER ", e.target.id, e.target.value);
     dispatch(filterPokemons(e.target.id, e.target.value));
-    props.setPage(1) // SET THE PAGINATED TO 1
+    setPage(1) // SET THE PAGE TO DEFAULT
   };
 
   const handleOrigin = (e) => {
@@ -28,11 +28,16 @@ export default function Navbar(props) {
     if (e.target.value === "existing") dispatch(existingPokemons());
     else if (e.target.value === "created") dispatch(createdPokemons());
     else dispatch(getPokemons());
+    setPage(1) // SET THE PAGE TO DEFAULT
   };
 
   return (
     <header className={styles.container}>
-      <select className={styles.items} id="filter" onChange={(e) => handleFilter(e)}>
+      <select
+        className={styles.items}
+        id="filter"
+        onChange={(e) => handleFilter(e)}
+      >
         <option value="">-- Order By Name --</option>
         <option value="asc">A-Z</option>
         <option value="desc">Z-A</option>
@@ -44,13 +49,21 @@ export default function Navbar(props) {
         <option value="existing">Existing</option>
       </select>
 
-      <select className={styles.items} id="attack" onChange={(e) => handleFilter(e)}>
+      <select
+        className={styles.items}
+        id="attack"
+        onChange={(e) => handleFilter(e)}
+      >
         <option value="">-- Order By Attack --</option>
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
       </select>
 
-      <select className={styles.items} id="type" onChange={(e) => handleFilter(e)}>
+      <select
+        className={styles.items}
+        id="type"
+        onChange={(e) => handleFilter(e)}
+      >
         <option value="">-- All Types --</option>
         {types &&
           types.map((t) => {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemon, getPokemons } from "../actions";
-import styles from '../styles/SearchBar.module.css';
+import styles from "../styles/SearchBar.module.css";
 
-export default function SearchBar() {
+export default function SearchBar({ setPage }) {
   const dispatch = useDispatch();
   const [pokeSearch, setPokeSearch] = useState("");
   const regex = /^[a-zA-Z]*$/;
@@ -25,6 +25,8 @@ export default function SearchBar() {
     setTimeout(() => {
       setPokeSearch(""); // SET THE INPUT SEARCH TO EMPTY
     }, 2000);
+
+    setPage(1) // SET THE PAGE TO DEFAULT
   };
   return (
     <div className={styles.container}>
@@ -34,7 +36,11 @@ export default function SearchBar() {
         placeholder="Search..."
         name="searchbar"
       />
-      <button className={styles.btn} type="submit" onClick={(e) => handleSubmit(e)}>
+      <button
+        className={styles.btn}
+        type="submit"
+        onClick={(e) => handleSubmit(e)}
+      >
         Catch Them!
       </button>
     </div>
