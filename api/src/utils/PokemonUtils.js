@@ -12,17 +12,19 @@ const getPokemonsApi = async () => {
     url: "https://pokeapi.co/api/v2/pokemon?limit=40",
     headers: { "Accept-Encoding": "null" },
   }).then((response) => response.data.results);
-/*   const data = await axios
+  /*   const data = await axios
     .get("https://pokeapi.co/api/v2/pokemon?limit=40")
     .then((response) => response.data.results) // GET INTO RESULTS ARRAY (WHERE ARE POKEMONS)
     .then((pokemon) => pokemon); */
   console.log("DATA ", data);
   // GET THE URL TO DO A SUBREQUEST
-  const urls = data.map((d) => axios({
-    method: "get",
-    url: d.url,
-    headers: { "Accept-Encoding": "null" },
-  })); // PENDING
+  const urls = data.map((d) =>
+    axios({
+      method: "get",
+      url: d.url,
+      headers: { "Accept-Encoding": "null" },
+    })
+  ); // PENDING
   console.log("URLS ", urls);
 
   // RESOLVED THEM ALREADY AND GET DATA FROM THEM
@@ -104,9 +106,11 @@ const findPokemonDb = async (value) => {
 };
 
 const findPokemonApi = async (value) => {
-  const data = await axios
-    .get(`https://pokeapi.co/api/v2/pokemon/${value}`)
-    .then((response) => response.data);
+  const data = await axios({
+    method: "get",
+    url: `https://pokeapi.co/api/v2/pokemon/${value}`,
+    headers: { "Accept-Encoding": "null" },
+  }).then((response) => response.data);
 
   const pokemon = {};
   pokemon["id"] = data.id;
