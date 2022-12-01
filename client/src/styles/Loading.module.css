@@ -2,11 +2,17 @@
   margin-top: 3rem;
   min-width: 320px;
   grid-column: 2/3;
-  grid-row: 2/3;
+  grid-row: 3/3;
   background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 980px) {
+  .loading {
+    grid-column: 1/3;
+  }
 }
 
 /* LOADING */

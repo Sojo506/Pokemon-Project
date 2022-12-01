@@ -28,7 +28,7 @@ export default function CardCreate() {
 
     if (!input.name) {
       errors.name = "Name is required";
-    } else if (!/^[a-zA-Z]*$/.test(input.name)) {
+    } else if (!/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/.test(input.name)) {
       errors.name = "Name is invalid";
     }
 
