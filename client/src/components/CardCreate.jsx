@@ -100,9 +100,7 @@ export default function CardCreate() {
     for(let i in input) {
       if(!input[i]) aux++
     }
-
-    console.log(aux)
-
+    
     if (Object.keys(errors).length > 0 || aux > 0)
       return alert("One or more paremeters are missing");
     if (!checkboxes.length) return alert("At least select one type");
