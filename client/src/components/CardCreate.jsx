@@ -21,7 +21,6 @@ export default function CardCreate() {
     weight: "",
   });
   const form = document.querySelector(".form");
-  console.log(form);
 
   // FORM VALIDATE
   function validate(input) {

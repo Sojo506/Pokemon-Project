@@ -16,9 +16,8 @@ export function getPokemons() {
       const response = await axios.get("/pokemons");
       if (response.data)
         dispatch({ type: GET_POKEMONS, payload: response.data });
-      console.log("Trayendo Pokemons");
     } catch (error) {
-      console.log("Not Found");
+      alert("Error");
     }
   };
 }
@@ -27,12 +26,9 @@ export function getPokemon(value) {
   // IT HELPS TO GET A POKEMON
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        `/pokemons/${value}`
-      );
+      const response = await axios.get(`/pokemons/${value}`);
       if (response.data)
         dispatch({ type: GET_POKEMON, payload: response.data });
-      console.log("Trayendo Pokemons");
     } catch (error) {
       alert("Error");
     }
@@ -43,12 +39,9 @@ export function getPokemonDetail(value) {
   // SHOW THE POKEMON'S DETAILS
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        `/pokemons/${value}`
-      );
+      const response = await axios.get(`/pokemons/${value}`);
       if (response.data)
         dispatch({ type: GET_POKEMON_DETAIL, payload: response.data });
-      console.log("Trayendo Pokemons");
     } catch (error) {
       alert("Error");
     }
@@ -59,10 +52,7 @@ export function createPokemon(pokemon) {
   // CREATE A POKEMON
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        `/pokemons`,
-        pokemon
-      );
+      const response = await axios.post(`/pokemons`, pokemon);
       if (response.data)
         dispatch({ type: CREATE_POKEMON, payload: response.data });
     } catch (error) {
@@ -75,9 +65,7 @@ export function filterPokemons(filter, value) {
   // FILTER BY NAME, ATTACK OR TYPE
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        `/pokemons?${filter}=${value}`
-      );
+      const response = await axios.get(`/pokemons?${filter}=${value}`);
       if (response.data)
         dispatch({ type: FILTER_POKEMONS, payload: response.data });
     } catch (error) {
