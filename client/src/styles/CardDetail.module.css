@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   height: 90%;
-  padding: 3rem;
+  padding: 4.5rem 3rem;
   gap: 2rem;
 }
 
@@ -17,18 +17,19 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: 3rem 0 0;
+  margin-top: 4rem;
   gap: 1rem;
   margin-bottom: 2rem;
   border: 1px solid #3761ab;
   width: 100%;
   max-width: 980px;
   background-color: #333;
-  padding: 0.1rem;
+  padding: .1rem;
   position: relative;
   border-radius: 2rem;
   color: #fff;
   box-shadow: 10px 7px 1px #333;
+  max-height: 320px;
 }
 
 .info h1 {
@@ -48,9 +49,12 @@
 @media (max-width: 720px) {
   .info {
     flex-direction: column;
-    padding: 2rem;
+    padding: 2.5rem 0;
     margin: 0;
     box-shadow: 5px 3px 1px #333;
+  }
+  .pokeContainer {
+    height: 100%;
   }
 }
 
@@ -82,7 +86,7 @@
 }
 
 .image{
-  height: 320px;
+  max-height: 320px;
 }
 
 /* PROGRESS BAR */
@@ -110,6 +114,13 @@
   margin-bottom: 40px;
   overflow: visible;
   position: relative;
+}
+
+
+@media (max-width:720px) {
+  .progress {
+    margin-bottom: 30px;
+  }
 }
 
 .progress .progressBar {
