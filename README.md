@@ -2,7 +2,7 @@
 
 # Individual Project - Henry Pokemon
 
-<img height="150" src="./pokemon.png" />
+<img height="150" src="./pokemonProject.png" />
 
 ## Objetivos del Proyecto
 
