@@ -2,7 +2,7 @@
 
 # Individual Project - Henry Pokemon
 
-<img height="720" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJgfpSbeCezTLGGvHhSqZkoT8BTLh2fatoLpuEpG1YsysDqHRmEAbHx70uzBq19A3tgCn1zUWy6gddf7TnVLjQjplo-dp4ZW25-pkF1QsbFcaR5_chHLjJVrAlNidTFxYgcq0e-7bOGmrcY-xKkl-qellSmdao90TDKiCkrCiatvnJvbAP34zA_5Bt/s1442/pokemon-landing.PNG" />
+<img height="auto" max-width="100%" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJgfpSbeCezTLGGvHhSqZkoT8BTLh2fatoLpuEpG1YsysDqHRmEAbHx70uzBq19A3tgCn1zUWy6gddf7TnVLjQjplo-dp4ZW25-pkF1QsbFcaR5_chHLjJVrAlNidTFxYgcq0e-7bOGmrcY-xKkl-qellSmdao90TDKiCkrCiatvnJvbAP34zA_5Bt/s1442/pokemon-landing.PNG" />
 
 ## Objetivos del Proyecto
 
