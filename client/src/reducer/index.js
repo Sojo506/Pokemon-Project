@@ -93,7 +93,7 @@ function rootReducer(state = initialState, action) {
 
       if (filter === "type" && value !== "all") {
         // TO DO: FILTER BY TYPE
-        auxPokemons = auxPokemons.filter((p) => {
+        auxPokemons = state.pokemonsDouble.filter((p) => {
           return p.id.length === 36
             ? p.types.some((t) => t.name === value)
             : p.types.includes(value);
