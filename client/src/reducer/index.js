@@ -6,12 +6,13 @@ import {
   GET_TYPES,
   FILTER_POKEMONS,
   GET_POKEMONS_API,
-  GET_POKEMONS_DB
+  GET_POKEMONS_DB,
+  CLEAR_POKEMON,
 } from "../actions";
 
 const initialState = {
   pokemons: [],
-  auxPokemons: [],
+  pokemonsDouble: [],
   types: [],
   pokemon: {},
 };
@@ -21,18 +22,18 @@ function rootReducer(state = initialState, action) {
     case GET_POKEMONS:
       return {
         ...state,
-        pokemons: action.payload,
-        auxPokemons: action.payload,
+        pokemons: state.pokemons.length ? state.pokemons : action.payload,
+        pokemonsDouble: action.payload,
       };
     case GET_POKEMON:
       return {
         ...state,
-        pokemons: action.payload
+        pokemons: action.payload,
       };
     case GET_POKEMON_DETAIL:
       return {
         ...state,
-        pokemon: action.payload
+        pokemon: action.payload,
       };
     case CREATE_POKEMON:
       return {
@@ -44,9 +45,64 @@ function rootReducer(state = initialState, action) {
         types: action.payload,
       };
     case FILTER_POKEMONS:
+      let auxPokemons = [...state.pokemons];
+      const [filter, value] = action.payload;
+
+      // FILTER BY ORDER
+      if (value === "all") auxPokemons = state.pokemonsDouble;
+
+      if (filter === "filter" && value !== "all") {
+        if (value === "asc") {
+          // ASCENDING A-Z
+          auxPokemons.sort((a, b) => {
+            let aux;
+            a.name.toUpperCase() < b.name.toUpperCase()
+              ? (aux = -1)
+              : a.name.toUpperCase() > b.name.toUpperCase()
+              ? (aux = 1)
+              : (aux = 0);
+            return aux;
+          });
+        }
+
+        // DESCENDING Z-A
+        if (value === "desc") {
+          auxPokemons.sort((a, b) => {
+            let aux;
+            b.name.toUpperCase() < a.name.toUpperCase()
+              ? (aux = -1)
+              : b.name.toUpperCase() > a.name.toUpperCase()
+              ? (aux = 1)
+              : (aux = 0);
+            return aux;
+          });
+        }
+      }
+
+      // FILTER BY ATTACK
+      if (filter === "attack" && value !== "all") {
+        if (value === "asc") {
+          // ASCENDING
+          auxPokemons.sort((a, b) => a.attack - b.attack);
+        }
+        if (value === "desc") {
+          // DESCENDING
+          auxPokemons.sort((a, b) => b.attack - a.attack);
+        }
+      }
+
+      if (filter === "type" && value !== "all") {
+        // TO DO: FILTER BY TYPE
+        auxPokemons = auxPokemons.filter((p) => {
+          return p.id.length === 36
+            ? p.types.some((t) => t.name === value)
+            : p.types.includes(value);
+        });
+      }
+
       return {
         ...state,
-        pokemons: action.payload,
+        pokemons: auxPokemons,
       };
     case GET_POKEMONS_API:
       return {
@@ -58,7 +114,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         pokemons: action.payload,
       };
-
+    case CLEAR_POKEMON:
+      return {
+        ...state,
+        pokemon: {},
+      };
     default:
       return state;
   }

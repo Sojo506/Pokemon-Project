@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getPokemonDetail } from "../actions";
+import { getPokemonDetail, clearPokemon } from "../actions";
 import styles from "../styles/CardDetail.module.css";
 import Loading from "./Loading";
 
@@ -13,6 +13,7 @@ export default function CardDetail(props) {
 
   useEffect(() => {
     dispatch(getPokemonDetail(props.match.params.id));
+    return () => dispatch(clearPokemon());
   }, []);
 
   return (
