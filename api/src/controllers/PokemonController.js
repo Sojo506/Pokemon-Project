@@ -11,6 +11,7 @@ const {
 // ================= HTTP METHODS ===================
 // GET /pokemons
 const getPokemons = async (req, res) => {
+  // OLD VERSION
   const { filter, type, attack } = req.query;
   try {
     const pokemons = await getBothPokemons();

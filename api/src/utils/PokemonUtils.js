@@ -16,7 +16,6 @@ const getPokemonsApi = async () => {
     .get("https://pokeapi.co/api/v2/pokemon?limit=40")
     .then((response) => response.data.results) // GET INTO RESULTS ARRAY (WHERE ARE POKEMONS)
     .then((pokemon) => pokemon); */
-  console.log("DATA ", data);
   // GET THE URL TO DO A SUBREQUEST
   const urls = data.map((d) =>
     axios({
@@ -25,7 +24,6 @@ const getPokemonsApi = async () => {
       headers: { "Accept-Encoding": "null" },
     })
   ); // PENDING
-  console.log("URLS ", urls);
 
   // RESOLVED THEM ALREADY AND GET DATA FROM THEM
   const pokemonsApi = await axios.all(urls).then((pokemon) => {
@@ -84,7 +82,6 @@ const findPokemonDb = async (value) => {
         },
       },
     });
-    console.log(pokemonDb);
     return [{ ...pokemonDb._previousDataValues }];
   }
 
