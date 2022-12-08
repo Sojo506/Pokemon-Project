@@ -20,15 +20,15 @@ export default function Navbar({ setPage }) {
   const handleFilter = (e) => {
     e.preventDefault();
     dispatch(filterPokemons(e.target.id, e.target.value));
-    setPage(1) // SET THE PAGE TO DEFAULT
+    setPage(1); // SET THE PAGE TO DEFAULT
   };
 
   const handleOrigin = (e) => {
     e.preventDefault();
+    if (e.target.value === "all") dispatch(getPokemons());
     if (e.target.value === "existing") dispatch(existingPokemons());
-    else if (e.target.value === "created") dispatch(createdPokemons());
-    else dispatch(getPokemons());
-    setPage(1) // SET THE PAGE TO DEFAULT
+    if (e.target.value === "created") dispatch(createdPokemons());
+    setPage(1); // SET THE PAGE TO DEFAULT
   };
 
   return (

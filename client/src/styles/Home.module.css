@@ -12,10 +12,18 @@
   padding: 1rem;
 }
 
-.btn {
+.btn2 {
+  position: fixed;
+  top: 1px;
+  left: 1px;
+  max-width: 90px;
+}
+
+.btn,
+.btn2 {
   width: 100%;
   border: none;
-  padding: .2rem;
+  padding: 0.2rem;
   font-family: inherit;
   color: #fff;
   background-color: hsl(345deg 100% 47%);
@@ -24,7 +32,9 @@
 }
 
 .btn:hover,
-.btn:active {
+.btn:active,
+.btn2:hover,
+.btn2:active {
   box-shadow: 2px 2px 1px #333;
 }
 
@@ -52,5 +62,10 @@
   }
   .header {
     width: unset;
+  }
+}
+@media (max-width: 400px) {
+  .btn2 {
+    top: 200px;
   }
 }

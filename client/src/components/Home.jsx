@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <div className={styles.main}>
       <header className={styles.header}>
-        <SearchBar setPage={setPage}/>
+        <SearchBar setPage={setPage} />
         <Navbar setPage={setPage} />
         <Link to="/home/create">
           <button className={styles.btn}>Create</button>
@@ -63,6 +63,10 @@ export default function Home() {
       </ul>
 
       <p className={styles.viewPage}>Page: {page}</p>
+
+      <button className={styles.btn2} onClick={() => dispatch(getPokemons())}>
+        Reset
+      </button>
     </div>
   );
 }
