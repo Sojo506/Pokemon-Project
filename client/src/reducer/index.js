@@ -22,7 +22,7 @@ function rootReducer(state = initialState, action) {
     case GET_POKEMONS:
       return {
         ...state,
-        pokemons: state.pokemons.length ? state.pokemons : action.payload,
+        pokemons: action.payload,
         pokemonsDouble: action.payload,
       };
     case GET_POKEMON:

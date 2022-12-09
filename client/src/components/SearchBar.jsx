@@ -12,7 +12,7 @@ export default function SearchBar({ setPage }) {
     setPokeSearch(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (regex.test(pokeSearch)) {

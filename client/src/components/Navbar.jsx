@@ -23,9 +23,11 @@ export default function Navbar({ setPage }) {
     setPage(1); // SET THE PAGE TO DEFAULT
   };
 
-  const handleOrigin = (e) => {
+  const handleOrigin = async(e) => {
     e.preventDefault();
-    if (e.target.value === "all") dispatch(getPokemons());
+    if (e.target.value === "all") {
+      dispatch(getPokemons());
+    }
     if (e.target.value === "existing") dispatch(existingPokemons());
     if (e.target.value === "created") dispatch(createdPokemons());
     setPage(1); // SET THE PAGE TO DEFAULT
