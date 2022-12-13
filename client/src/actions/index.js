@@ -25,7 +25,7 @@ export function getPokemons() {
 
 export function getPokemon(value) {
   // IT HELPS TO GET A POKEMON
-  return async (dispatch) => {
+  /* return async (dispatch) => {
     try {
       const response = await axios.get(`/pokemons/${value}`);
       if (response.data)
@@ -33,7 +33,12 @@ export function getPokemon(value) {
     } catch (error) {
       alert("Error");
     }
-  };
+  }; */
+  return {
+    type: GET_POKEMON,
+    payload: value
+
+  }
 }
 
 export function getPokemonDetail(value) {

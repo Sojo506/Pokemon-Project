@@ -26,9 +26,11 @@ function rootReducer(state = initialState, action) {
         pokemonsDouble: action.payload,
       };
     case GET_POKEMON:
+      let aux = state.pokemons.filter(p => p.name.toLowerCase().includes(action.payload));
+      console.log(aux)
       return {
         ...state,
-        pokemons: action.payload,
+        pokemons: aux,
       };
     case GET_POKEMON_DETAIL:
       return {
