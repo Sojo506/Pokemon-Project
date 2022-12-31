@@ -9,7 +9,7 @@ const getPokemonsApi = async () => {
   // SEARCH POKEMOS BY THE API
   const data = await axios({
     method: "get",
-    url: "https://pokeapi.co/api/v2/pokemon?limit=40",
+    url: "https://pokeapi.co/api/v2/pokemon?limit=120",
     headers: { "Accept-Encoding": "null" },
   }).then((response) => response.data.results);
   /*   const data = await axios
