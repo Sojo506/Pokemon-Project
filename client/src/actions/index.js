@@ -8,7 +8,8 @@ export const GET_POKEMONS_API = "GET_POKEMONS_API";
 export const GET_POKEMONS_DB = "GET_POKEMONS_DB";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
-export const CLEAR_POKEMON = "CLEAR_POKEMON"
+export const CLEAR_POKEMON = "CLEAR_POKEMON";
+export const SET_PAGE = "SET_PAGE";
 
 export function getPokemons() {
   // GET ALL THE POKEMONS TO RENDER THEM ON HOME
@@ -36,9 +37,8 @@ export function getPokemon(value) {
   }; */
   return {
     type: GET_POKEMON,
-    payload: value
-
-  }
+    payload: value,
+  };
 }
 
 export function getPokemonDetail(value) {
@@ -83,8 +83,8 @@ export function filterPokemons(filter, value, pokemons) {
   // NEW VERSION
   return {
     type: FILTER_POKEMONS,
-    payload: [filter, value]
-  }
+    payload: [filter, value],
+  };
 }
 
 export function existingPokemons() {
@@ -124,10 +124,16 @@ export function getTypes() {
   };
 }
 
-
 export function clearPokemon() {
   return {
     type: CLEAR_POKEMON,
-    payload: ""
-  }
+    payload: "",
+  };
+}
+
+export function setPage(page) {
+  return {
+    type: SET_PAGE,
+    payload: page,
+  };
 }

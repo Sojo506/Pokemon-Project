@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getPokemon, getPokemons } from "../actions";
+import { getPokemon, getPokemons, setPage } from "../actions";
 import styles from "../styles/SearchBar.module.css";
 
-export default function SearchBar({ setPage }) {
+export default function SearchBar() {
   const dispatch = useDispatch();
   const [pokeSearch, setPokeSearch] = useState("");
   const regex = /^[a-zA-Z]*$/;
@@ -26,7 +26,8 @@ export default function SearchBar({ setPage }) {
       setPokeSearch(""); // SET THE INPUT SEARCH TO EMPTY
     }, 2000);
 
-    setPage(1) // SET THE PAGE TO DEFAULT
+    dispatch(setPage(1)); // SET THE PAGE TO DEFAULT
+    //setPage(1);
   };
   return (
     <div className={styles.container}>

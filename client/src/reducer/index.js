@@ -8,6 +8,7 @@ import {
   GET_POKEMONS_API,
   GET_POKEMONS_DB,
   CLEAR_POKEMON,
+  SET_PAGE,
 } from "../actions";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   pokemonsDouble: [],
   types: [],
   pokemon: {},
+  page: 1,
 };
 
 function rootReducer(state = initialState, action) {
@@ -26,8 +28,10 @@ function rootReducer(state = initialState, action) {
         pokemonsDouble: action.payload,
       };
     case GET_POKEMON:
-      let aux = state.pokemons.filter(p => p.name.toLowerCase().includes(action.payload));
-      console.log(aux)
+      let aux = state.pokemons.filter((p) =>
+        p.name.toLowerCase().includes(action.payload)
+      );
+      console.log(aux);
       return {
         ...state,
         pokemons: aux,
@@ -120,6 +124,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         pokemon: {},
+      };
+    case SET_PAGE:
+      return {
+        ...state,
+        page: action.payload,
       };
     default:
       return state;

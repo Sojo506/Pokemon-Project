@@ -1,11 +1,16 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setPage } from "../actions";
 import styles from "../styles/Paginated.module.css";
 
-export default function Paginated({ pokemons, pokemonsPage, paginated }) {
+export default function Paginated({ pokemons, pokemonsPage }) {
   const pages = [];
-  for (let i = 0; i < Math.ceil(pokemons/pokemonsPage); i++) {
+  const dispatch = useDispatch();
+  
+  for (let i = 0; i < Math.ceil(pokemons / pokemonsPage); i++) {
     pages.push(i + 1);
   }
+
   return (
     <div>
       <ul className={styles.pageContainer}>
@@ -13,7 +18,7 @@ export default function Paginated({ pokemons, pokemonsPage, paginated }) {
           pages.map((p) => {
             return (
               <li key={p}>
-                <button onClick={() => paginated(p)}>{p}</button>
+                <button onClick={() => dispatch(setPage(p))}>{p}</button>
               </li>
             );
           })}

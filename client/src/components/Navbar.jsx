@@ -7,9 +7,10 @@ import {
   filterPokemons,
   existingPokemons,
   createdPokemons,
+  setPage,
 } from "../actions";
 
-export default function Navbar({ setPage }) {
+export default function Navbar() {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.types);
 
@@ -20,17 +21,19 @@ export default function Navbar({ setPage }) {
   const handleFilter = (e) => {
     e.preventDefault();
     dispatch(filterPokemons(e.target.id, e.target.value));
-    setPage(1); // SET THE PAGE TO DEFAULT
+    dispatch(setPage(1)); // SET THE PAGE TO DEFAULT
+    //setPage(1);
   };
 
-  const handleOrigin = async(e) => {
+  const handleOrigin = async (e) => {
     e.preventDefault();
     if (e.target.value === "all") {
       dispatch(getPokemons());
     }
     if (e.target.value === "existing") dispatch(existingPokemons());
     if (e.target.value === "created") dispatch(createdPokemons());
-    setPage(1); // SET THE PAGE TO DEFAULT
+    dispatch(setPage(1)); // SET THE PAGE TO DEFAULT
+    //setPage(1);
   };
 
   return (
